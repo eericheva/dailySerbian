@@ -6,3 +6,7 @@ pyenv activate serbian
 
 pip install datamodel-code-generator
 datamodel-codegen  --input users/dailySerbian.json --input-file-type jsonschema --output users/dailySerbian.py  --target-python-version 3.8 --use-default
+
+
+pip install pre-commit
+pre-commit install
