@@ -1,0 +1,11 @@
+# несколько вариантов переводов
+# перевод фото и картинок
+
+# размещене на хостинге
+# devops
+# + база данных
+
+##############################################################
+# TEXT 2 SPEECH
+# https://faun.pub/python-text-to-speech-tutorial-b0031f6664a0
+# todo https://www.codingem.com/best-ai-voice-generators/
