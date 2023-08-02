@@ -11,4 +11,6 @@ repos:
 
 
 # pip install pre-commit
+# create .pre-commit-config.yaml in project root
 # pre-commit install
+# now git commit
