@@ -12,3 +12,5 @@ datamodel-codegen  --input users/dailySerbian.json --input-file-type jsonschema 
 # create .pre-commit-config.yaml in project root
 # pre-commit install
 # now git commit
+
+test line
