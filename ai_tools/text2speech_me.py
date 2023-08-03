@@ -8,5 +8,5 @@ def text2speech_me(message, inserb):
     voice = gTTS(text=inserb, lang="sr", slow=False)
     voice_file = os.path.join(USER_DICT_PATH, str(CURRENT_USER_ID(message)) + ".ogg")
     voice.save(voice_file)
-    voice = open(voice_file, 'rb')
+    voice = open(voice_file, "rb")
     return voice

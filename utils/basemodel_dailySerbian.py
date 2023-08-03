@@ -17,18 +17,18 @@ class Word(BaseModel):
 
 
 class Add2dictItems(Enum):
-    add2dict_item_yes = 'add2dict_item_yes'
-    add2dict_item_no = 'add2dict_item_no'
+    add2dict_item_yes = "add2dict_item_yes"
+    add2dict_item_no = "add2dict_item_no"
 
 
 class SpamItems(Enum):
-    start_spam = 'start_spam'
-    stop_spam = 'stop_spam'
+    start_spam = "start_spam"
+    stop_spam = "stop_spam"
 
 
 class BaseCommand(Enum):
-    start = 'start'
-    help = 'help'
+    start = "start"
+    help = "help"
 
 
 class User(BaseModel):

@@ -19,10 +19,12 @@ def assert_valid_markup_ct_general(markup: Dict):
     correct = jsonschema.Draft7Validator(scheme).is_valid(markup)
     errors = sorted(jsonschema.Draft7Validator(scheme).iter_errors(markup), key=str)
     for e in errors:
-        print(f"path in markup : {e.path}, instance value : {e.instance}\n"
-              f"path in scheme : {e.schema_path}, should be value : {e.schema}\n"
-              f"{e.message}\n"
-              f"*****")
+        print(
+            f"path in markup : {e.path}, instance value : {e.instance}\n"
+            f"path in scheme : {e.schema_path}, should be value : {e.schema}\n"
+            f"{e.message}\n"
+            f"*****"
+        )
     assert correct, str(errors)
 
 
@@ -33,7 +35,7 @@ def get_markup_scheme() -> Dict[str, Path]:
     :param
     :return: basemodel_dailySerbian jsonschema as dict
     """
-    return json.load(open(JSON_SCHEMA_PATH, 'r'))
+    return json.load(open(JSON_SCHEMA_PATH, "r"))
 
 
 if __name__ == "__main__":
