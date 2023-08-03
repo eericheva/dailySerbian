@@ -1,11 +1,12 @@
+import json
 from pathlib import Path
 from typing import Dict
 
 import jsonschema
 
 from users.base_dict_utils import create_new_user
-from utils.basemodel_dailySerbian import User
-from utils.setup import *
+from utils import basemodel_dailySerbian
+from utils.setup import JSON_SCHEMA_PATH
 
 
 def assert_valid_markup_ct_general(markup: Dict):
@@ -39,6 +40,6 @@ def get_markup_scheme() -> Dict[str, Path]:
 
 
 if __name__ == "__main__":
-    test_user = User(id=0, username="test_user")
+    test_user = basemodel_dailySerbian.User(id=0, username="test_user")
     test_user_dict = create_new_user(test_user)
     assert_valid_markup_ct_general(test_user_dict)

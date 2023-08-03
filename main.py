@@ -4,29 +4,42 @@ from ai_tools import speech2text_me
 from telegram_bot_messages import telegram_bot_answers, telegram_bot_start_session
 from telegram_bot_messages import telegram_bot_spam
 from users import base_dict_utils
-from utils.setup import *
+from utils import basemodel_dailySerbian
+from utils.setup import CURRENT_USER, CURRENT_USER_ID, dailySerbian_bot, MY_USERS
 
 
-@dailySerbian_bot.message_handler(commands=[BaseCommand.start.value])
+@dailySerbian_bot.message_handler(
+    commands=[basemodel_dailySerbian.BaseCommand.start.value]
+)
 def get_start_command(message):
     if CURRENT_USER(message) not in MY_USERS:
         telegram_bot_start_session.start_me(message)
 
 
-@dailySerbian_bot.message_handler(commands=[BaseCommand.help.value])
+@dailySerbian_bot.message_handler(
+    commands=[basemodel_dailySerbian.BaseCommand.help.value]
+)
 def get_start_command(message):
     telegram_bot_start_session.start_me(message)
 
 
-@dailySerbian_bot.message_handler(commands=[SpamItems.start_spam.value])
+@dailySerbian_bot.message_handler(
+    commands=[basemodel_dailySerbian.SpamItems.start_spam.value]
+)
 def get_start_spam_command(message):
-    base_dict_utils.update_new_spam_flag(message, SpamItems.start_spam.value)
+    base_dict_utils.update_new_spam_flag(
+        message, basemodel_dailySerbian.SpamItems.start_spam.value
+    )
     telegram_bot_spam.spam_me(message)
 
 
-@dailySerbian_bot.message_handler(commands=[SpamItems.stop_spam.value])
+@dailySerbian_bot.message_handler(
+    commands=[basemodel_dailySerbian.SpamItems.stop_spam.value]
+)
 def get_stop_spam_command(message):
-    base_dict_utils.update_new_spam_flag(message, SpamItems.stop_spam.value)
+    base_dict_utils.update_new_spam_flag(
+        message, basemodel_dailySerbian.SpamItems.stop_spam.value
+    )
     telegram_bot_spam.stop_spam_message(message)
 
 
@@ -77,7 +90,8 @@ def get_messages_voice(message):
 
 
 @dailySerbian_bot.callback_query_handler(
-    func=lambda call: call.data in [Add2dictItems.add2dict_item_yes.value]
+    func=lambda call: call.data
+    in [basemodel_dailySerbian.Add2dictItems.add2dict_item_yes.value]
 )
 def check_button_ask_add2dict_yes(call):
     base_dict_utils.add_new_item_to_this_user_dict(call, INRUS, INSERB)
@@ -86,7 +100,8 @@ def check_button_ask_add2dict_yes(call):
 
 
 @dailySerbian_bot.callback_query_handler(
-    func=lambda call: call.data in [Add2dictItems.add2dict_item_no.value]
+    func=lambda call: call.data
+    in [basemodel_dailySerbian.Add2dictItems.add2dict_item_no.value]
 )
 def check_button_ask_add2dict_no(call):
     dailySerbian_bot.send_message(
@@ -95,14 +110,14 @@ def check_button_ask_add2dict_no(call):
 
 
 @dailySerbian_bot.callback_query_handler(
-    func=lambda call: call.data in [SpamItems.start_spam.value]
+    func=lambda call: call.data in [basemodel_dailySerbian.SpamItems.start_spam.value]
 )
 def check_button_ask_spam_yes(call):
     get_start_spam_command(call)
 
 
 @dailySerbian_bot.callback_query_handler(
-    func=lambda call: call.data in [SpamItems.stop_spam.value]
+    func=lambda call: call.data in [basemodel_dailySerbian.SpamItems.stop_spam.value]
 )
 def check_button_ask_spam_no(call):
     get_stop_spam_command(call)

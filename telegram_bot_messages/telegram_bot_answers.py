@@ -1,7 +1,10 @@
+import telebot
+
 from ai_tools import text2speech_me
 from ai_tools import translate_me
 from users import base_dict_utils
-from utils.setup import *
+from utils import basemodel_dailySerbian
+from utils.setup import CURRENT_USER_ID, dailySerbian_bot
 
 
 def translate_and_replay_in_text_me(message, inrus):
@@ -28,10 +31,11 @@ def ask_add2dict(message, inrus):
     else:
         item_yes = telebot.types.InlineKeyboardButton(
             text="Ебашь, че уж тут!",
-            callback_data=Add2dictItems.add2dict_item_yes.value,
+            callback_data=basemodel_dailySerbian.Add2dictItems.add2dict_item_yes.value,
         )
         item_no = telebot.types.InlineKeyboardButton(
-            text="Впизду!", callback_data=Add2dictItems.add2dict_item_no.value
+            text="Впизду!",
+            callback_data=basemodel_dailySerbian.Add2dictItems.add2dict_item_no.value,
         )
         markup = telebot.types.InlineKeyboardMarkup().add(item_yes, item_no)
         dailySerbian_bot.send_message(
@@ -43,15 +47,21 @@ def ask_add2dict(message, inrus):
 
 def ask_add2spam(call):
     user_spam_flag = base_dict_utils.check_user_spam_flag(call)
-    if user_spam_flag in [SpamItems.stop_spam.value, False, None]:
+    if user_spam_flag in [
+        basemodel_dailySerbian.SpamItems.stop_spam.value,
+        False,
+        None,
+    ]:
         dailySerbian_bot.send_message(
             CURRENT_USER_ID(call), "Сейчас у тебя отключен спам от меня."
         )
         item_yes = telebot.types.InlineKeyboardButton(
-            text="Ебашь, че уж тут!", callback_data=SpamItems.start_spam.value
+            text="Ебашь, че уж тут!",
+            callback_data=basemodel_dailySerbian.SpamItems.start_spam.value,
         )
         item_no = telebot.types.InlineKeyboardButton(
-            text="Впизду!", callback_data=SpamItems.stop_spam.value
+            text="Впизду!",
+            callback_data=basemodel_dailySerbian.SpamItems.stop_spam.value,
         )
         markup = telebot.types.InlineKeyboardMarkup().add(item_yes, item_no)
         dailySerbian_bot.send_message(

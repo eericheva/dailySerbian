@@ -1,6 +1,6 @@
 from users import base_dict_utils
-from utils.setup import *
 from telegram_bot_messages import telegram_bot_answers
+from utils.setup import CURRENT_USER_ID, dailySerbian_bot
 
 
 def start_me(message):

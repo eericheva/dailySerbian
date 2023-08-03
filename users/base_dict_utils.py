@@ -1,4 +1,16 @@
-from utils.setup import *
+import json
+import os
+
+from utils import basemodel_dailySerbian
+from utils.setup import (
+    CURRENT_USER,
+    CURRENT_USER_DICT,
+    CURRENT_USER_FILE,
+    CURRENT_USER_ID,
+    CURRENT_USER_USERNAME,
+    MY_USERS,
+    USER_DICT_PATH,
+)
 
 
 # DICT_ITEM
@@ -58,7 +70,7 @@ def create_new_user(message):
             "id": CURRENT_USER_ID(message),
             "username": CURRENT_USER_USERNAME(message),
             "user_dict": create_new_dict(),
-            "want2send": SpamItems.stop_spam.value,
+            "want2send": basemodel_dailySerbian.SpamItems.stop_spam.value,
         }
     }
     if CURRENT_USER(message) not in MY_USERS:

@@ -3,7 +3,7 @@ import json
 import os
 
 import telebot
-from telegram.ext import Updater, CommandHandler
+from telegram.ext import Updater
 
 dailySerbian_bot = telebot.TeleBot("6585528539:AAFeOHutk007_lryWvihnI3lKn-W7O0XT0w")
 dailySerbian_updater = Updater(
@@ -20,7 +20,6 @@ os.system(
     f"--output {json_datamodel_path}  "
     f"--target-python-version 3.8 --use-default"
 )
-from utils.basemodel_dailySerbian import *
 
 USER_DICT_PATH = os.path.join(this_project_path, "data")
 my_user_ends = ".usr.json"

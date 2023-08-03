@@ -1,6 +1,7 @@
 import os
 from gtts import gTTS
-from utils.setup import *
+
+from utils.setup import CURRENT_USER_ID, USER_DICT_PATH
 
 
 def text2speech_me(message, inserb):
