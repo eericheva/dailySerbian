@@ -19,7 +19,7 @@ def get_start_command(message):
 @dailySerbian_bot.message_handler(
     commands=[basemodel_dailySerbian.BaseCommand.help.value]
 )
-def get_start_command(message):
+def get_help_command(message):
     telegram_bot_start_session.start_me(message)
 
 
