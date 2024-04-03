@@ -1,4 +1,6 @@
 # coding=utf-8
+# import telebot
+# import uvicorn as uvicorn
 
 from ai_tools import speech2text_me
 from telegram_bot_messages import telegram_bot_answers, telegram_bot_start_session
@@ -6,6 +8,11 @@ from telegram_bot_messages import telegram_bot_spam
 from users import base_dict_utils
 from utils import basemodel_dailySerbian
 from utils.setup import CURRENT_USER, CURRENT_USER_ID, dailySerbian_bot, MY_USERS
+
+# from utils.setup import dailySerbian_app,  WEBHOOK_PORT, \
+#     WEBHOOK_SSL_CERT, \
+#     WEBHOOK_SSL_PRIV, WEBHOOK_URL_BASE, \
+#     WEBHOOK_URL_PATH
 
 
 @dailySerbian_bot.message_handler(
@@ -121,6 +128,48 @@ def check_button_ask_spam_yes(call):
 )
 def check_button_ask_spam_no(call):
     get_stop_spam_command(call)
+
+
+################################################################################################################
+# # fastapi
+# @dailySerbian_app.post(WEBHOOK_URL_PATH)
+# def process_webhook(update: dict):
+#     """
+#     Process webhook calls
+#     """
+#     if update:
+#         update = telebot.types.Update.de_json(update)
+#         dailySerbian_bot.process_new_updates([update])
+#     else:
+#         return
+#
+#
+# dailySerbian_bot.set_webhook(url=WEBHOOK_URL_BASE + WEBHOOK_URL_PATH,
+#                              certificate=open(WEBHOOK_SSL_CERT, 'r')
+#                              )
+# print(dailySerbian_bot.get_webhook_info())
+#
+# uvicorn.run(
+#         dailySerbian_app,
+#         host='0.0.0.0',
+#         port=WEBHOOK_PORT,
+#         # ssl_certfile=WEBHOOK_SSL_CERT,
+#         # ssl_keyfile=WEBHOOK_SSL_PRIV
+#         )
+
+################################################################################################################
+
+################################################################################################################
+# dailySerbian_bot.set_webhook(url=WEBHOOK_URL_BASE + WEBHOOK_URL_PATH)
+# print(dailySerbian_bot.get_webhook_info())
+#
+# dailySerbian_bot.run_webhooks(listen="127.0.0.1",
+#                               port=443,
+#                               # url_path=WEBHOOK_URL_BASE + WEBHOOK_URL_PATH,  # WEBHOOK_URL_BASE + WEBHOOK_URL_PATH
+#                               # webhook_url=WEBHOOK_URL_BASE,  # WEBHOOK_URL_BASE + WEBHOOK_URL_PATH
+#                               # secret_token=NGROK_TOKEN
+#                               )
+################################################################################################################
 
 
 dailySerbian_bot.infinity_polling(timeout=20, long_polling_timeout=20)

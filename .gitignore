@@ -2,6 +2,7 @@
 data/
 prompts.txt
 telegram_bot_token.py
+*.pem
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
