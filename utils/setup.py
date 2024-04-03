@@ -5,7 +5,11 @@ import os
 # import fastapi
 import telebot
 from telegram.ext import Updater
-from telegram_bot_token import TOKEN
+
+if not os.path.isfile("telegram_bot_token.py"):
+    TOKEN = os.environ.get("TOKEN")
+else:
+    from telegram_bot_token import TOKEN
 
 dailySerbian_bot = telebot.TeleBot(TOKEN)
 dailySerbian_bot.remove_webhook()
