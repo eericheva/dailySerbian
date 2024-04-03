@@ -4,11 +4,10 @@ import os
 
 import telebot
 from telegram.ext import Updater
+from telegram_bot_token import TOKEN
 
-dailySerbian_bot = telebot.TeleBot("6585528539:AAFeOHutk007_lryWvihnI3lKn-W7O0XT0w")
-dailySerbian_updater = Updater(
-    "6585528539:AAFeOHutk007_lryWvihnI3lKn-W7O0XT0w", use_context=True
-)
+dailySerbian_bot = telebot.TeleBot(TOKEN)
+dailySerbian_updater = Updater(TOKEN, use_context=True)
 dailySerbian_dispatcher = dailySerbian_updater.dispatcher
 
 this_project_path = os.getcwd()  # os.path.dirname(os.path.abspath(__file__))
