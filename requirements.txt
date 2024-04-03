@@ -1,3 +1,4 @@
+Cython
 annotated-types==0.5.0
 anyio==3.7.1
 APScheduler==3.6.3
