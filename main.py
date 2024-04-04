@@ -80,7 +80,6 @@ def get_messages_voice(message):
         return None
     file_info = dailySerbian_bot.get_file(message.voice.file_id)
     file_path = dailySerbian_bot.download_file(file_info.file_path)
-    print(file_path)
 
     global INRUS, INSERB
     INRUS = speech2text_me.speech2text_me(file_path)
