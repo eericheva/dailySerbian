@@ -1,4 +1,7 @@
-name: Deploy
+# This workflow will allows you to deploy to Heroku
+# https://github.com/marketplace/actions/deploy-to-heroku
+
+name: Deploy Heroku
 
 #on:
 #  push:
@@ -19,7 +22,9 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "daily-serbian" #Must be unique in Heroku
           heroku_email: "epifana89@gmail.com"
-          buildpack: ["heroku/python", "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"]
+          buildpack:
+            - "heroku/python",
+            - "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"
           branch: "main"
           healthcheck: "https://daily-serbian.herokuapp.com/health"
           env:
