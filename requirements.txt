@@ -4,8 +4,10 @@ beautifulsoup4==4.12.3
 certifi==2024.2.2
 charset-normalizer==3.3.2
 click==8.1.7
+coverage==7.4.4
 deep-translator==1.11.4
 exceptiongroup==1.2.0
+ffprobe==0.5
 gTTS==2.5.1
 h11==0.14.0
 httpcore==1.0.5
