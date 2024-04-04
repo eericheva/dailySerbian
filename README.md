@@ -1,56 +1,53 @@
-# dailySerbian
+## dailySerbian
 
 @dailySerbianBot
 
-## Я бот-переводчик с русского языка на сербский язык и с сербского на русский.
+## I am a bot-translator from Russian to Serbian and from Serbian to Russian.
 
-Вот что ты должен знать обо мне:
+Here's what you should know about me:
 
-Я могу переводить всякое: текст, документы, войсы. Также я присылаю войс с озвучиванием перевода. Просто пришли мне что
-нибудь на русском, а я подумаю, что с этим можно сделать.
+I can translate all sorts of things: text, documents, voice messages. I also send voice messages with the translation. Just send me something in Russian, and I'll figure out what to do with it.
 
-Еще я могу создать для тебя отдельный словарь и спамить оттуда словами время от времени, чтобы ты мог тренировать свой
-словарь. Я адаптирую словарь под твои знания и чаще присылаю те слова, которые ты переводил недавно, или ошибся во время
-тренировки.
+I can also create a separate dictionary for you and occasionally spam words from there so you can practice your vocabulary. I adapt the dictionary to your knowledge and often send words that you have translated recently or made mistakes with during training.
 
-### TODO - то что я пока не умею продуктово
+### TODO - what I'm not yet capable of product-wise
 
-- несколько вариантов переводов
-- перевод фото и картинок
-- тренировка слов (русский->сербский)
-- настройка времени тренировки и времени спама слов
+- Multiple translation options
+- Translation of photos and images
+- Word training (Russian->Serbian)
+- Setting training time and word spam time
 
-### Технически я реализован на открытых библиотеках:
+### Technically, I am implemented using open libraries:
 
-- под капотом у меня pydantic
-- в качестве базы данных для словаря пользователя я использую json
-- перевод text -> text:
+- Under the hood, I have pydantic
+- For the user dictionary database, I use json
+- Translation text -> text:
     - deep_translator.GoogleTranslator(source="ru", target="sr")
-- recognizer speech -> text:
+- Recognizer speech -> text:
     - speech_recognition.Recognizer()
-- text -> speech_me:
+- Text -> speech_me:
     - gtts.gTTS(text, lang="sr", slow=False)
 
-### У меня настроен некоторый CICD:
+### I have some CICD configured:
 
 - Lint with flake8
 - Test with pytest + Generate Coverage Report
 
-### TODO - то, что я не умею пока технически
+### TODO - what I'm not yet capable of technically
 
-- размещене на хостинге
+- Hosting deployment
     - https://docs.github.com/en/actions/deployment/about-deployments/deploying-with-github-actions#finding-deployment-examples
     - localhost https://djangostars.com/blog/how-to-create-and-deploy-a-telegram-bot/
 - localhost
     - self-hosted
       runners https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/about-self-hosted-runners
-- база данных на Postgre
-- покрытие тестами
+- Postgre database
+- Test coverage
 
-### TODO - open ai_tools, которые было бы интересно попробовать
+### TODO - open ai_tools, it would be interesting to try
 
 - TEXT 2 SPEECH
     - https://faun.pub/python-text-to-speech-tutorial-b0031f6664a0
     - https://www.codingem.com/best-ai-voice-generators/
-- interact with ChatGPT
+- Interact with ChatGPT
     - https://medium.com/@andrea.faviait/deploying-a-telegram-bot-using-chatgpt-and-whisper-apis-with-railway-ef79e6cff955
