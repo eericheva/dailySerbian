@@ -26,4 +26,5 @@ jobs:
           branch: "main"
           healthcheck: "https://daily-serbian.herokuapp.com/health"
           env:
-            HD_TOKEN: ${{secrets.TELEGRAM_TOKEN}}
+#            HD_TOKEN: ${{secrets.TELEGRAM_TOKEN}}
+            HD_TOKEN: "${{secrets.TELEGRAM_TOKEN}}"
