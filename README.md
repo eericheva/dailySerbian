@@ -6,42 +6,44 @@
 
 Here's what you should know about me:
 
-I can translate all sorts of things: text, documents, voice messages. I also send voice messages with the translation. Just send me something in Russian, and I'll figure out what to do with it.
+I can translate all sorts of things: text, documents, voice messages. I also send voice messages with the translation.
+
+Just send me something in Russian, and I'll figure out what to do with it.
 
 I can also create a separate dictionary for you and occasionally spam words from there so you can practice your vocabulary. I adapt the dictionary to your knowledge and often send words that you have translated recently or made mistakes with during training.
+
+### ML part is implemented using open libraries:
+
+[comment]: <> (- Under the hood, I have pydantic)
+
+[comment]: <> (- For the user dictionary database, I use json)
+- Translation text -> text:
+    - ``` deep_translator.GoogleTranslator(source="ru", target="sr") ```
+- Recognizer speech -> text:
+    - ``` speech_recognition.Recognizer() ```
+- Text -> speech:
+    - ``` gtts.gTTS(text, lang="sr", slow=False) ```
+
+### I have some CI/CD configured:
+
+- Lint with pre-commit-hooks, flake8, blake
+- Test with pytest + Generate Coverage Report
+- Build, Test and Deploy to Heroku hosting with Github Actions
 
 ### TODO - what I'm not yet capable of product-wise
 
 - Multiple translation options
 - Translation of photos and images
-- Word training (Russian->Serbian)
-- Setting training time and word spam time
-
-### Technically, I am implemented using open libraries:
-
-- Under the hood, I have pydantic
-- For the user dictionary database, I use json
-- Translation text -> text:
-    - deep_translator.GoogleTranslator(source="ru", target="sr")
-- Recognizer speech -> text:
-    - speech_recognition.Recognizer()
-- Text -> speech_me:
-    - gtts.gTTS(text, lang="sr", slow=False)
-
-### I have some CICD configured:
-
-- Lint with flake8
-- Test with pytest + Generate Coverage Report
+- Word self-training (Russian->Serbian)
+- Setting self-training time and word spam time
 
 ### TODO - what I'm not yet capable of technically
 
-- Hosting deployment
-    - https://docs.github.com/en/actions/deployment/about-deployments/deploying-with-github-actions#finding-deployment-examples
-    - localhost https://djangostars.com/blog/how-to-create-and-deploy-a-telegram-bot/
 - localhost
     - self-hosted
       runners https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/about-self-hosted-runners
 - Postgre database
+- Dockerfile
 - Test coverage
 
 ### TODO - open ai_tools, it would be interesting to try
