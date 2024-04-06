@@ -6,8 +6,12 @@ import telebot
 
 if not os.path.isfile("telegram_bot_token.py"):
     TOKEN = os.environ.get("TOKEN")
+    DETECT_LANG_API_KEY = os.environ.get("DATECT_LANG_API_KEY")
 else:
-    from telegram_bot_token import TOKEN
+    from telegram_bot_token import TOKEN, DETECT_LANG_API_KEY
+
+DETECT_LANG_API_KEY = DETECT_LANG_API_KEY
+TOKEN = TOKEN
 
 dailySerbian_bot = telebot.TeleBot(TOKEN)
 dailySerbian_bot.remove_webhook()
@@ -15,6 +19,7 @@ dailySerbian_bot.remove_webhook()
 this_project_path = os.getcwd()  # os.path.dirname(os.path.abspath(__file__))
 JSON_SCHEMA_PATH = os.path.join(this_project_path, "utils/basemodel_dailySerbian.json")
 json_datamodel_path = os.path.join(this_project_path, "utils/basemodel_dailySerbian.py")
+font_file = os.path.join(this_project_path, "utils/DejaVuSans.ttf")
 if not os.path.isfile(json_datamodel_path):
     os.system(
         f"datamodel-codegen  --input {JSON_SCHEMA_PATH} "
@@ -52,6 +57,7 @@ CURRENT_USER_DICT = lambda message: json.load(
 )
 
 MAX_DICT_LEN = 30
+MAX_STR_LEN_TO_SAVE_DICT = 30
 
 # dailySerbian_updater = Updater(TOKEN, use_context=True)
 # dailySerbian_dispatcher = dailySerbian_updater.dispatcher

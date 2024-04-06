@@ -1,11 +1,17 @@
 # coding=utf-8
 
-from ai_tools import speech2text_me
+from ai_tools import image2text_me, speech2text_me
 from telegram_bot_messages import telegram_bot_answers, telegram_bot_start_session
 from telegram_bot_messages import telegram_bot_spam
 from users import base_dict_utils
 from utils import basemodel_dailySerbian
-from utils.setup import CURRENT_USER, CURRENT_USER_ID, dailySerbian_bot, MY_USERS
+from utils.setup import (
+    CURRENT_USER,
+    CURRENT_USER_ID,
+    dailySerbian_bot,
+    MAX_STR_LEN_TO_SAVE_DICT,
+    MY_USERS,
+)
 
 
 @dailySerbian_bot.message_handler(
@@ -49,7 +55,7 @@ def get_messages_text(message):
     INRUS = message.text
     INSERB = telegram_bot_answers.translate_and_replay_in_text_me(message, INRUS)
     telegram_bot_answers.voice_me(message, INSERB)
-    if len(INRUS) < 100:
+    if len(INRUS) < MAX_STR_LEN_TO_SAVE_DICT:
         telegram_bot_answers.ask_add2dict(message, INRUS)
 
 
@@ -67,7 +73,7 @@ def get_messages_document(message):
     INRUS = file_path.decode("utf8")
     INSERB = telegram_bot_answers.translate_and_replay_in_text_me(message, INRUS)
     telegram_bot_answers.voice_me(message, INSERB)
-    if len(INRUS) < 100:
+    if len(INRUS) < MAX_STR_LEN_TO_SAVE_DICT:
         telegram_bot_answers.ask_add2dict(message, INRUS)
 
 
@@ -85,7 +91,27 @@ def get_messages_voice(message):
     INRUS = speech2text_me.speech2text_me(file_path)
     INSERB = telegram_bot_answers.translate_and_replay_in_text_me(message, INRUS)
     telegram_bot_answers.voice_me(message, INSERB)
-    if len(INRUS) < 100:
+    if len(INRUS) < MAX_STR_LEN_TO_SAVE_DICT:
+        telegram_bot_answers.ask_add2dict(message, INRUS)
+
+
+@dailySerbian_bot.message_handler(content_types=["photo"])
+def get_messages_photo(message):
+    if message.photo[0].file_size > 1024:
+        dailySerbian_bot.send_message(
+            CURRENT_USER_ID(message), "в рот я ебал такие большие фото обрабатывать!"
+        )
+        return None
+    file_info = dailySerbian_bot.get_file(message.photo[2].file_id)
+    file_path = dailySerbian_bot.download_file(file_info.file_path)
+
+    global INRUS, INSERB
+    inrus_dict_w_coords = image2text_me.image2text_me(file_path)
+    INSERB, INRUS = telegram_bot_answers.translate_and_replay_in_image_me(
+        message, inrus_dict_w_coords, file_path
+    )
+    telegram_bot_answers.voice_me(message, INSERB)
+    if len(INRUS) < MAX_STR_LEN_TO_SAVE_DICT:
         telegram_bot_answers.ask_add2dict(message, INRUS)
 
 
