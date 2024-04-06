@@ -4,7 +4,17 @@ from ai_tools import text2speech_me
 from ai_tools import translate_me
 from users import base_dict_utils
 from utils import basemodel_dailySerbian
-from utils.setup import CURRENT_USER_ID, dailySerbian_bot
+from utils.setup import (
+    CURRENT_USER_ID,
+    dailySerbian_bot,
+    font_file,
+    MAX_STR_LEN_TO_SAVE_DICT,
+)
+
+from PIL import Image
+from PIL import ImageFont
+from PIL import ImageDraw
+import io
 
 
 def translate_and_replay_in_text_me(message, inrus):
@@ -12,6 +22,28 @@ def translate_and_replay_in_text_me(message, inrus):
     result = inrus + "\n --> \n" + inserb
     dailySerbian_bot.send_message(CURRENT_USER_ID(message), result)
     return inserb
+
+
+def translate_and_replay_in_image_me(message, inrus, file_path):
+    f = Image.open(io.BytesIO(file_path))
+    draw = ImageDraw.Draw(f)
+    font = ImageFont.truetype(font_file, size=12)
+    inrus_out = "\n".join([_inrus[1] for _inrus in inrus])
+    inserb_out = []
+    for coords, _inrus, _ in inrus:
+        inserb = translate_me.translate_me(_inrus, inrus_out)
+        draw.rectangle(
+            xy=[tuple(coords[0]), tuple(coords[2])], fill=(255, 255, 255), outline="red"
+        )
+        draw.text(xy=coords[0], text=inserb, fill=(0, 0, 0), font=font)
+        inserb_out.append(inserb)
+    dailySerbian_bot.send_photo(CURRENT_USER_ID(message), f)
+    inrus = inrus_out
+    inserb = "\n".join(inserb_out)
+    if len(inrus) < MAX_STR_LEN_TO_SAVE_DICT:
+        result = inrus + "\n --> \n" + inserb
+        dailySerbian_bot.send_message(CURRENT_USER_ID(message), result)
+    return inserb, inrus
 
 
 def voice_me(message, inserb):
