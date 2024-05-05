@@ -8,13 +8,13 @@ Here's what you should know about me:
 
 I can translate all sorts of things: text, documents, voice messages. I also send voice messages with the translation.
 
-Just send me something in Russian, and I'll figure out what to do with it.
+Just send me something in Russian or in Serbian, and I'll figure out what to do with it.
 
 I can also create a separate dictionary for you and occasionally spam words from there so you can practice your vocabulary. I adapt the dictionary to your knowledge and often send words that you have translated recently or made mistakes with during training.
 
 ### ML part is implemented using open libraries:
 
-[comment]: <> (- Under the hood, I have pydantic)
+- I have some pydantic and json-schema inplementation
 
 [comment]: <> (- For the user dictionary database, I use json)
 - Translation text -> text:
@@ -23,6 +23,10 @@ I can also create a separate dictionary for you and occasionally spam words from
     - ``` speech_recognition.Recognizer() ```
 - Text -> speech:
     - ``` gtts.gTTS(text, lang="sr", slow=False) ```
+- Image -> text:
+  - ```easyocr.Reader(lang_list=["en", "ru"])```
+- Sourse language detection:
+  - ```deep_translator.single_detection()```
 
 ### I have some CI/CD configured:
 
@@ -32,22 +36,20 @@ I can also create a separate dictionary for you and occasionally spam words from
 
 ### TODO - what I'm not yet capable of product-wise
 
-- Multiple translation options
-- Translation of photos and images
-- Word self-training (Russian->Serbian)
+- Word self-training (Russian->Serbian) --> in progress
 - Setting self-training time and word spam time
 
 ### TODO - what I'm not yet capable of technically
 
-- localhost
+- localhost + Deploy with Dockerfile --> in progress
     - self-hosted
       runners https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/about-self-hosted-runners
 - Postgre database
-- Dockerfile
 - Test coverage
 
 ### TODO - open ai_tools, it would be interesting to try
 
+- Multiple translation options as output
 - TEXT 2 SPEECH
     - https://faun.pub/python-text-to-speech-tutorial-b0031f6664a0
     - https://www.codingem.com/best-ai-voice-generators/
