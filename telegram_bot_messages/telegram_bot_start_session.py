@@ -4,18 +4,16 @@ from utils.setup import CURRENT_USER_ID, dailySerbian_bot
 
 
 def start_me(message):
-    dailySerbian_bot.send_message(
-        CURRENT_USER_ID(message), "Дратути, новый пользователь."
-    )
+    dailySerbian_bot.send_message(CURRENT_USER_ID(message), "Hello there, new user.")
     base_dict_utils.create_new_user(message)
     dailySerbian_bot.send_message(
-        CURRENT_USER_ID(message), "Вот что ты должен знать обо мне:"
+        CURRENT_USER_ID(message), "That is what you should know about me:"
     )
     start_me2(message)
     dailySerbian_bot.send_message(
         CURRENT_USER_ID(message),
-        "Еще я могу создать для тебя отдельный словарь "
-        "и спамить оттуда переводами время от времени. ",
+        "Also i cam make for you separate dictionary "
+        "and spam on you some translations from there from time to time. ",
     )
     telegram_bot_answers.ask_add2spam(message)
 
@@ -23,7 +21,7 @@ def start_me(message):
 def start_me2(message):
     dailySerbian_bot.send_message(
         CURRENT_USER_ID(message),
-        "Карочи, я могу переводить всякое: текст, документы, войсы. "
-        "Просто пришли мне что нибудь на русском, "
-        "а я подумаю, что с этим можно сделать",
+        "Long story short, I can translate something: texts, documents, voices. "
+        "Just send me something in russian or serbian, "
+        "and I figure out what I can do with it",
     )

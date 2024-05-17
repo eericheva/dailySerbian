@@ -63,7 +63,7 @@ def get_messages_text(message):
 def get_messages_document(message):
     if message.document.file_size > 500:
         dailySerbian_bot.send_message(
-            CURRENT_USER_ID(message), "в рот я ебал такие большие файлы качать!"
+            CURRENT_USER_ID(message), "NOT PROCEEDED: file is to big!"
         )
         return None
     file_info = dailySerbian_bot.get_file(message.document.file_id)
@@ -81,7 +81,7 @@ def get_messages_document(message):
 def get_messages_voice(message):
     if message.voice.duration > 30:
         dailySerbian_bot.send_message(
-            CURRENT_USER_ID(message), "в рот я ебал такие длинные сообщения слушать!"
+            CURRENT_USER_ID(message), "NOT PROCEEDED: message is to long!"
         )
         return None
     file_info = dailySerbian_bot.get_file(message.voice.file_id)
@@ -99,7 +99,7 @@ def get_messages_voice(message):
 def get_messages_photo(message):
     if message.photo[0].file_size > 1024:
         dailySerbian_bot.send_message(
-            CURRENT_USER_ID(message), "в рот я ебал такие большие фото обрабатывать!"
+            CURRENT_USER_ID(message), "NOT PROCEEDED: image is to big!"
         )
         return None
     file_info = dailySerbian_bot.get_file(message.photo[2].file_id)
@@ -121,7 +121,7 @@ def get_messages_photo(message):
 )
 def check_button_ask_add2dict_yes(call):
     base_dict_utils.add_new_item_to_this_user_dict(call, INRUS, INSERB)
-    dailySerbian_bot.send_message(CURRENT_USER_ID(call), "Ай заебись! Я сделаль!")
+    dailySerbian_bot.send_message(CURRENT_USER_ID(call), "ALL COOL! I'm done!")
     telegram_bot_answers.ask_add2spam(call)
 
 
@@ -131,7 +131,7 @@ def check_button_ask_add2dict_yes(call):
 )
 def check_button_ask_add2dict_no(call):
     dailySerbian_bot.send_message(
-        CURRENT_USER_ID(call), "Ну и хуй с тобой! Оствайся тупым!"
+        CURRENT_USER_ID(call), "It's ok, it's ok, shame on you!"
     )
 
 
