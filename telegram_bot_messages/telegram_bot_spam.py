@@ -36,10 +36,9 @@ def spam_me(message):
 def start_spam_message(message):
     dailySerbian_bot.send_message(
         CURRENT_USER_ID(message),
-        f"Ай заебись, у тебя включен режим спама. "
-        f"Буду присылать тебе фразы из твоего словаря в ближайшее "
-        f"время. "
-        f"Если передумаешь, пришли мне "
+        f"Hooray, you have got turned on spam "
+        f"I will send you some phrases from you dictionary in the nearest future"
+        f"If you change you mind, just send me "
         f"/{basemodel_dailySerbian.SpamItems.stop_spam.value}",
     )
 
@@ -47,8 +46,8 @@ def start_spam_message(message):
 def stop_spam_message(message):
     dailySerbian_bot.send_message(
         CURRENT_USER_ID(message),
-        f"Ну и хуй с тобой! У тебя отключен режим спама. "
-        f"Оствайся тупым! "
-        f"Если передумаешь, пришли мне "
+        f"It's ok, it's ok, you have got turned off spam. "
+        f"Shame on you! "
+        f"If you change you mind, just send me "
         f"/{basemodel_dailySerbian.SpamItems.start_spam.value}",
     )

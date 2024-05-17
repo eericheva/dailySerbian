@@ -57,22 +57,23 @@ def ask_add2dict(message, inrus):
         counter = base_dict_utils.update_item_to_this_user_dict(message, inrus)
         dailySerbian_bot.send_message(
             CURRENT_USER_ID(message),
-            f"Ты долбоеб " f"и спрашивал об этом переводе уже {counter} раз",
+            f"You are a little bit forgotten  "
+            f"and you have asked about this translation {counter} times already",
         )
         ask_add2spam(message)
     else:
         item_yes = telebot.types.InlineKeyboardButton(
-            text="Ебашь, че уж тут!",
+            text="DO IT!",
             callback_data=basemodel_dailySerbian.Add2dictItems.add2dict_item_yes.value,
         )
         item_no = telebot.types.InlineKeyboardButton(
-            text="Впизду!",
+            text="Just forget about it!",
             callback_data=basemodel_dailySerbian.Add2dictItems.add2dict_item_no.value,
         )
         markup = telebot.types.InlineKeyboardMarkup().add(item_yes, item_no)
         dailySerbian_bot.send_message(
             CURRENT_USER_ID(message),
-            "Это какая-то новая хуета. Добавить эту фразу в твой словарь?",
+            "This is somehow new thing. Should I add this to you dictionary?",
             reply_markup=markup,
         )
 
@@ -85,17 +86,19 @@ def ask_add2spam(call):
         None,
     ]:
         dailySerbian_bot.send_message(
-            CURRENT_USER_ID(call), "Сейчас у тебя отключен спам от меня."
+            CURRENT_USER_ID(call), "You do not receive any spam from me right now."
         )
         item_yes = telebot.types.InlineKeyboardButton(
-            text="Ебашь, че уж тут!",
+            text="DO IT!",
             callback_data=basemodel_dailySerbian.SpamItems.start_spam.value,
         )
         item_no = telebot.types.InlineKeyboardButton(
-            text="Впизду!",
+            text="Just forget about it!",
             callback_data=basemodel_dailySerbian.SpamItems.stop_spam.value,
         )
         markup = telebot.types.InlineKeyboardMarkup().add(item_yes, item_no)
         dailySerbian_bot.send_message(
-            CURRENT_USER_ID(call), "Включить и спамить или как?", reply_markup=markup
+            CURRENT_USER_ID(call),
+            "I should turn on and spam on you, shouldn't I?",
+            reply_markup=markup,
         )
