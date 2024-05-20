@@ -2,5 +2,7 @@ services:
   frontend:
     container_name: daily_serbian_container
     image: ghcr.io/eericheva/daily_serbian_image:latest
+    restart: always
+
     ports:
-      - 80:80
+      - 3000:3000
