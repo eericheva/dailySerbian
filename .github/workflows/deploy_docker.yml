@@ -1,6 +1,5 @@
-# This workflow will allows you to deploy to Heroku
-# https://github.com/marketplace/actions/deploy-to-heroku
-
+# This workflow will allows you to push docker image to registry ghcr.io
+# and deploy on remote server from it through docker compose
 name: Deploy Docker
 
 on:
@@ -17,32 +16,34 @@ env:
 
 jobs:
     publish:
-        name: publish image
+        name: Build and Publish Image to ghcr.io
         runs-on: ubuntu-latest
 
         steps:
           - uses: actions/checkout@v3
-          - name: Login
+          - name: Login to ghcr.io
             run: |
               echo ${{ secrets.PAT }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-          - name: Build and Publish
+          - name: Build Image and Publish to ghcr.io
             run: |
               docker build . --tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
               docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
     deploy:
         needs: publish
-        name: Deploy Image with Docker
+        name: Deploy Image with Docker Compose
         runs-on: ubuntu-latest
 
         steps:
-          - name: install ssh keys
+          - name: Install SSH Keys
             # check this thread to understand why its needed: <https://stackoverflow.com/a/70447517>
             run: |
-              install -m 600 -D /dev/null ~/.ssh/id_rsa
+#              install -m 600 -D /dev/null ~/.ssh/id_rsa
+              mkdir -p ~/.ssh
               echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+              chmod 600 ~/.ssh/id_rsa
               ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
-          - name: connect and pull
+          - name: Connect to remote server and Pull Image from registry
             run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && docker compose pull && docker compose up -d && exit"
           - name: cleanup
             run: rm -rf ~/.ssh
