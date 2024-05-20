@@ -38,11 +38,11 @@ jobs:
       - name: Install SSH Keys 0
         # check this thread to understand why its needed: <https://stackoverflow.com/a/70447517>
         # mkdir -p ~/.ssh
-        run: install -m 600 -D /dev/null ~/.ssh/id_rsa ~/.ssh/known_hosts
+        run: install -m 600 -D /dev/null ~/.ssh/id_rsa ~/
       - name: Install SSH Keys 1
         run: echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
       - name: Install SSH Keys 2
-        run: chmod 600 ~/.ssh/known_hosts
+        run: touch ~/.ssh/known_hosts && chmod 600 ~/.ssh/known_hosts
       - name: Install SSH Keys 3
         run: ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
       - name: Connect to remote server and Pull Image from registry
