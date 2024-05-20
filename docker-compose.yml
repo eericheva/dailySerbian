@@ -1,0 +1,6 @@
+services:
+  frontend:
+    container_name: daily_serbian_container
+    image: ghcr.io/eericheva/daily_serbian_image:latest
+    ports:
+      - 80:80
