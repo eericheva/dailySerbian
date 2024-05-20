@@ -36,11 +36,8 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-          - name: Checkout code
-            uses: actions/checkout@v2
           - name: install ssh keys
-            # check this thread to understand why its needed:
-            # <https://stackoverflow.com/a/70447517>
+            # check this thread to understand why its needed: <https://stackoverflow.com/a/70447517>
             run: |
               mkdir -p ~/.ssh
               echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
