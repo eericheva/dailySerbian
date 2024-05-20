@@ -15,37 +15,37 @@ env:
   IMAGE_NAME: ${{ github.actor }}/daily_serbian_image:latest
 
 jobs:
-    publish:
-        name: Build and Publish Image to ghcr.io
-        runs-on: ubuntu-latest
+  publish:
+    name: Build and Publish Image to ghcr.io
+    runs-on: ubuntu-latest
 
-        steps:
-          - uses: actions/checkout@v3
-          - name: Login to ghcr.io
-            run: |
-              echo ${{ secrets.PAT }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-          - name: Build Image and Publish to ghcr.io
-            run: |
-              docker build . --tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-              docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Login to ghcr.io
+        run: |
+          echo ${{ secrets.PAT }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: Build Image and Publish to ghcr.io
+        run: |
+          docker build . --tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
-    deploy:
-        needs: publish
-        name: Deploy Image with Docker Compose
-        runs-on: ubuntu-latest
+  deploy:
+    needs: publish
+    name: Deploy Image with Docker Compose
+    runs-on: ubuntu-latest
 
-        steps:
-          - name: Install SSH Keys 0
-            # check this thread to understand why its needed: <https://stackoverflow.com/a/70447517>
-            # mkdir -p ~/.ssh
-            run: install -m 600 -D /dev/null ~/.ssh/id_rsa
-          -name: Install SSH Keys 1
-            run: echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          -name: Install SSH Keys 2
-            run: chmod 600 ~/.ssh/id_rsa
-          -name: Install SSH Keys 3
-            run: ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
-          - name: Connect to remote server and Pull Image from registry
-            run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && docker compose pull && docker compose up -d && exit"
-          - name: cleanup
-            run: rm -rf ~/.ssh
+    steps:
+      - name: Install SSH Keys 0
+        # check this thread to understand why its needed: <https://stackoverflow.com/a/70447517>
+        # mkdir -p ~/.ssh
+        run: install -m 600 -D /dev/null ~/.ssh/id_rsa
+      - name: Install SSH Keys 1
+        run: echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+      - name: Install SSH Keys 2
+        run: chmod 600 ~/.ssh/id_rsa
+      - name: Install SSH Keys 3
+        run: ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
+      - name: Connect to remote server and Pull Image from registry
+        run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && docker compose pull && docker compose up -d && exit"
+      - name: cleanup
+        run: rm -rf ~/.ssh
