@@ -47,7 +47,7 @@ jobs:
       - name: Install SSH Keys 3
         run: echo ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
       - name: Connect to remote server 0
-        run: ssh -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
+        run: ssh -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo "This is first connect" && exit"
       - name: Connect to remote server and Pull Image from registry
         run: ssh -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && docker compose pull && docker compose up -d && exit"
       - name: cleanup

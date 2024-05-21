@@ -35,6 +35,7 @@ def translate_and_replay_in_image_me(message, inrus, file_path):
         draw.rectangle(
             xy=[tuple(coords[0]), tuple(coords[2])], fill=(255, 255, 255), outline="red"
         )
+        inserb = "None" if inserb is None else inserb
         draw.text(xy=coords[0], text=inserb, fill=(0, 0, 0), font=font)
         inserb_out.append(inserb)
     dailySerbian_bot.send_photo(CURRENT_USER_ID(message), f)
