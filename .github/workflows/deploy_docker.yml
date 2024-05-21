@@ -38,7 +38,7 @@ jobs:
       - name: Install SSH Keys 0
         # check this thread to understand why its needed: <https://stackoverflow.com/a/70447517>
         # mkdir -p ~/.ssh
-        run: install -m 600 -D /dev/null ~/.ssh/id_rsa ~/
+        run: install -m 600 -D /dev/null ~/.ssh/id_rsa
       - name: Install SSH Keys 1
         run: echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
       - name: Install SSH Keys 2
