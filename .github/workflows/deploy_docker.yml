@@ -37,18 +37,19 @@ jobs:
     steps:
       - name: Install SSH Keys 0
         # check this thread to understand why its needed: <https://stackoverflow.com/a/70447517>
-        # echo ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
-        # ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
-        run: install -m 600 -D /dev/null ~/.ssh/id_rsa
-      - name: Install SSH Keys 1
-        run: echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-      - name: Install SSH Keys 2
-        run: touch ~/.ssh/known_hosts && chmod 600 ~/.ssh/known_hosts
-      - name: Install SSH Keys 3
-        run: ssh-keyscan mlnode > ~/.ssh/known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
       - name: Connect to remote server 0
-        run: ssh -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo "This is first connect" && exit"
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'ENDSSH'
+          echo "This is first connect"
+          ENDSSH
       - name: Connect to remote server and Pull Image from registry
-        run: ssh -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && docker compose pull && docker compose up -d && exit"
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'ENDSSH'
+          cd ${{ secrets.WORK_DIR }} && docker compose pull && docker compose up -d
+          ENDSSH
       - name: cleanup
         run: rm -rf ~/.ssh
