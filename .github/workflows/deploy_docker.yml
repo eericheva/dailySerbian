@@ -42,7 +42,7 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
       - name: Install SSH Keys 1
-          run: |
+        run: |
           ssh-keyscan ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
       - name: Connect to remote server 0
         run: |
