@@ -45,7 +45,7 @@ jobs:
       - name: Install SSH Keys 2
         run: touch ~/.ssh/known_hosts && chmod 600 ~/.ssh/known_hosts
       - name: Install SSH Keys 3
-        run: echo ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
+        run: ssh-keyscan mlnode > ~/.ssh/known_hosts
       - name: Connect to remote server 0
         run: ssh -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo "This is first connect" && exit"
       - name: Connect to remote server and Pull Image from registry
