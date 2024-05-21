@@ -33,6 +33,7 @@ I can also create a separate dictionary for you and occasionally spam words from
 - Lint with pre-commit-hooks, flake8, blake
 - Test with pytest + Generate Coverage Report
 - Build, Test and Deploy to Heroku hosting with Github Actions
+- Deploy with Docker Compose
 
 ### TODO - what I'm not yet capable of product-wise
 
@@ -41,9 +42,6 @@ I can also create a separate dictionary for you and occasionally spam words from
 
 ### TODO - what I'm not yet capable of technically
 
-- localhost + Deploy with Dockerfile --> in progress
-    - self-hosted
-      runners https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/about-self-hosted-runners
 - Postgre database
 - Test coverage
 
