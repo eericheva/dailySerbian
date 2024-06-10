@@ -16,6 +16,7 @@ from utils.setup import (
 # DICT_ITEM
 def add_new_item_to_this_user_dict(message, inrus, inserb):
     new_item = {"counter": 1, "value": inrus, "translation": [inserb]}
+    create_new_user(message)
     this_user_dict = CURRENT_USER_DICT(message)
     if len(this_user_dict.get("user").get("user_dict")) > 30:
         base_counter = [l.get("counter") for l in this_user_dict]
@@ -30,6 +31,7 @@ def add_new_item_to_this_user_dict(message, inrus, inserb):
 
 
 def update_item_to_this_user_dict(message, inrus):
+    create_new_user(message)
     this_user_dict = CURRENT_USER_DICT(message)
     this_user_inrus = this_user_dict.get("user").get("user_dict")
     this_user_inrus = [s for s in this_user_inrus if s.get("value") == inrus][0]
@@ -42,6 +44,7 @@ def update_item_to_this_user_dict(message, inrus):
 
 
 def check_item_to_this_user_dict(message, inrus):
+    create_new_user(message)
     this_user_dict = CURRENT_USER_DICT(message)
     this_user_inrus = this_user_dict.get("user").get("user_dict")
     this_user_inrus = [s.get("value") for s in this_user_inrus]
@@ -50,6 +53,7 @@ def check_item_to_this_user_dict(message, inrus):
 
 # SPAM_FLAG
 def update_new_spam_flag(message, flag):
+    create_new_user(message)
     this_user_dict = CURRENT_USER_DICT(message)
     this_user_dict["user"]["want2send"] = flag
     json.dump(
@@ -58,7 +62,18 @@ def update_new_spam_flag(message, flag):
     )
 
 
+def update_new_spam_time(message, new_time):
+    create_new_user(message)
+    this_user_dict = CURRENT_USER_DICT(message)
+    this_user_dict["user"]["last_spam_time"] = new_time
+    json.dump(
+        this_user_dict,
+        open(os.path.join(USER_DICT_PATH, CURRENT_USER_FILE(message)), "w"),
+    )
+
+
 def check_user_spam_flag(message):
+    create_new_user(message)
     this_user_dict = CURRENT_USER_DICT(message)
     return this_user_dict.get("user").get("want2send")
 
@@ -73,7 +88,7 @@ def create_new_user(message):
             "want2send": basemodel_dailySerbian.SpamItems.stop_spam.value,
         }
     }
-    if CURRENT_USER(message) not in MY_USERS:
+    if CURRENT_USER(message) not in MY_USERS(0):
         json.dump(
             new_user,
             open(os.path.join(USER_DICT_PATH, CURRENT_USER_FILE(message)), "w"),
