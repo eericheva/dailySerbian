@@ -39,12 +39,12 @@ MY_USERS = [s.split("/")[-1].split(my_user_ends)[0] for s in my_users_files]
 
 CURRENT_USER_ID = (
     lambda message: message.from_user.id
-    if isinstance(message, telebot.types.Message)
+    if isinstance(message, (telebot.types.Message, telebot.types.CallbackQuery))
     else int(message.split(".")[0])
 )
 CURRENT_USER_USERNAME = (
     lambda message: message.from_user.username
-    if isinstance(message, telebot.types.Message)
+    if isinstance(message, (telebot.types.Message, telebot.types.CallbackQuery))
     else message.split(".")[1]
 )
 
