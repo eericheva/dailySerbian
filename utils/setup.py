@@ -4,18 +4,15 @@ import os
 
 import telebot
 
+############ TOKENS ############
+
 if not os.path.isfile("telegram_bot_token.py"):
     TOKEN = os.environ.get("TOKEN")
     DETECT_LANG_API_KEY = os.environ.get("DETECT_LANG_API_KEY")
 else:
     from telegram_bot_token import TOKEN, DETECT_LANG_API_KEY
 
-DETECT_LANG_API_KEY = DETECT_LANG_API_KEY
-TOKEN = TOKEN
-
-dailySerbian_bot = telebot.TeleBot(TOKEN)
-dailySerbian_bot.remove_webhook()
-
+############ BASEMODEL and Pathes ############
 this_project_path = os.getcwd()  # os.path.dirname(os.path.abspath(__file__))
 JSON_SCHEMA_PATH = os.path.join(this_project_path, "utils/basemodel_dailySerbian.json")
 json_datamodel_path = os.path.join(this_project_path, "utils/basemodel_dailySerbian.py")
@@ -28,6 +25,7 @@ if not os.path.isfile(json_datamodel_path):
         f"--target-python-version 3.11.5 --use-default"
     )
 
+############ GLOBAL VARIABLES ############
 USER_DICT_PATH = os.path.join(this_project_path, "data")
 if not os.path.isdir(USER_DICT_PATH):
     os.makedirs(USER_DICT_PATH)
@@ -55,6 +53,13 @@ CURRENT_USER_FILE = lambda message: CURRENT_USER(message) + my_user_ends
 CURRENT_USER_DICT = lambda message: json.load(
     open(os.path.join(USER_DICT_PATH, CURRENT_USER_FILE(message)), "r")
 )
+
+############ Elements ############
+DETECT_LANG_API_KEY = DETECT_LANG_API_KEY
+TOKEN = TOKEN
+
+dailySerbian_bot = telebot.TeleBot(TOKEN)
+dailySerbian_bot.remove_webhook()
 
 MAX_DICT_LEN = 30
 MAX_STR_LEN_TO_SAVE_DICT = 30

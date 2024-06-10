@@ -149,4 +149,9 @@ def check_button_ask_spam_no(call):
     get_stop_spam_command(call)
 
 
+for this_user in MY_USERS:
+    base_dict_utils.update_new_spam_flag(
+        this_user, basemodel_dailySerbian.SpamItems.stop_spam.value
+    )
+
 dailySerbian_bot.infinity_polling(timeout=20, long_polling_timeout=20)
