@@ -15,7 +15,7 @@ from utils.setup import (
 
 # DICT_ITEM
 def add_new_item_to_this_user_dict(message, inrus, inserb):
-    new_item = {"counter": 1, "value": inrus, "translation": inserb}
+    new_item = {"counter": 1, "value": inrus, "translation": [inserb]}
     this_user_dict = CURRENT_USER_DICT(message)
     if len(this_user_dict.get("user").get("user_dict")) > 30:
         base_counter = [l.get("counter") for l in this_user_dict]
