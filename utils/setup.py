@@ -3,6 +3,7 @@ import json
 import os
 
 import telebot
+from telebot.async_telebot import AsyncTeleBot
 
 ############ TOKENS ############
 
@@ -30,10 +31,18 @@ USER_DICT_PATH = os.path.join(this_project_path, "data")
 if not os.path.isdir(USER_DICT_PATH):
     os.makedirs(USER_DICT_PATH)
 my_user_ends = ".usr.json"
-my_users_files = [
-    s for s in glob.glob(os.path.join(USER_DICT_PATH, "*")) if s.endswith(my_user_ends)
+# my_users_files = [
+#         s for s in glob.glob(os.path.join(USER_DICT_PATH, "*")) if s.endswith(my_user_ends)
+#         ]
+# MY_USERS = [s.split("/")[-1].split(my_user_ends)[0] for s in my_users_files]
+MY_USERS = lambda _: [
+    s.split("/")[-1].split(my_user_ends)[0]
+    for s in [
+        s
+        for s in glob.glob(os.path.join(USER_DICT_PATH, "*"))
+        if s.endswith(my_user_ends)
+    ]
 ]
-MY_USERS = [s.split("/")[-1].split(my_user_ends)[0] for s in my_users_files]
 
 CURRENT_USER_ID = (
     lambda message: message.from_user.id
@@ -58,11 +67,8 @@ CURRENT_USER_DICT = lambda message: json.load(
 DETECT_LANG_API_KEY = DETECT_LANG_API_KEY
 TOKEN = TOKEN
 
-dailySerbian_bot = telebot.TeleBot(TOKEN)
-dailySerbian_bot.remove_webhook()
+dailySerbian_bot = AsyncTeleBot(TOKEN)
+# dailySerbian_bot.remove_webhook()
 
 MAX_DICT_LEN = 30
 MAX_STR_LEN_TO_SAVE_DICT = 30
-
-# dailySerbian_updater = Updater(TOKEN, use_context=True)
-# dailySerbian_dispatcher = dailySerbian_updater.dispatcher

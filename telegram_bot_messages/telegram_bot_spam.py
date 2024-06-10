@@ -1,17 +1,18 @@
+import asyncio
 import random
-import time
 
 from users import base_dict_utils
 from utils import basemodel_dailySerbian
 from utils.setup import CURRENT_USER_DICT, CURRENT_USER_ID, dailySerbian_bot
 
 
-def spam_me(message):
-    start_spam_message(message)
+async def spam_me(message):
+    await start_spam_message(message)
     while (
         base_dict_utils.check_user_spam_flag(message)
         == basemodel_dailySerbian.SpamItems.start_spam.value
     ):
+        await asyncio.sleep(3600)
         this_user_dict = CURRENT_USER_DICT(message).get("user").get("user_dict")
         base_inrus, base_inserb = zip(
             *[
@@ -30,16 +31,18 @@ def spam_me(message):
         result = "******** Time to train some words ******** \n"
         result += f"{inrus} \n --> \n {inserb}\n"
         result += (
-            f" ---- If you do not want to receive train spam, \n "
-            f"just send me {basemodel_dailySerbian.SpamItems.stop_spam.value} --- "
+            f" ---- If you do not want to receive train spam, \n just send me "
+            f"/{basemodel_dailySerbian.SpamItems.stop_spam.value} --- "
         )
-        dailySerbian_bot.send_message(
-            CURRENT_USER_ID(message), result, time.sleep(3600)
-        )
+        if (
+            base_dict_utils.check_user_spam_flag(message)
+            == basemodel_dailySerbian.SpamItems.stop_spam.value
+        ):
+            await dailySerbian_bot.send_message(CURRENT_USER_ID(message), result)
 
 
-def start_spam_message(message):
-    dailySerbian_bot.send_message(
+async def start_spam_message(message):
+    await dailySerbian_bot.send_message(
         CURRENT_USER_ID(message),
         f"Hooray, you have got turned on spam "
         f"I will send you some phrases from you dictionary in the nearest future. \n"
@@ -48,8 +51,8 @@ def start_spam_message(message):
     )
 
 
-def stop_spam_message(message):
-    dailySerbian_bot.send_message(
+async def stop_spam_message(message):
+    await dailySerbian_bot.send_message(
         CURRENT_USER_ID(message),
         f"It's ok, it's ok, you have got turned off spam. "
         f"Shame on you! "
