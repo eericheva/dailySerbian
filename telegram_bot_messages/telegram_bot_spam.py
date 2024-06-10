@@ -29,7 +29,7 @@ def spam_me(message):
         inserb = base_inserb[this_index]
         result = inrus + "\n --> \n" + "\n".join(inserb)
         dailySerbian_bot.send_message(
-            CURRENT_USER_ID(message), result, time.sleep(3600)
+            CURRENT_USER_ID(message), result, time.sleep(10)  # 3600
         )
 
 
