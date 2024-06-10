@@ -54,6 +54,8 @@ CURRENT_USER = (
 CURRENT_USER_FILE = lambda message: CURRENT_USER(message) + my_user_ends
 CURRENT_USER_DICT = lambda message: json.load(
     open(os.path.join(USER_DICT_PATH, CURRENT_USER_FILE(message)), "r")
+    if os.path.exists(os.path.join(USER_DICT_PATH, CURRENT_USER_FILE(message)))
+    else open(os.path.join(USER_DICT_PATH, CURRENT_USER_FILE(message)), "w")
 )
 
 MAX_DICT_LEN = 30

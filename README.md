@@ -25,6 +25,12 @@ I can also create a separate dictionary for you and occasionally spam words from
     - ``` gtts.gTTS(text, lang="sr", slow=False) ```
 - Image -> text:
   - ```easyocr.Reader(lang_list=["en", "ru"])```
+  - To deploy such a model on a free deployment website, it is important to keep everything as small as possible. Do not upload cache or virtual environment files to the deployment, and make sure you only use parts of packages that you need. The Pytorch package made my app exceed the allowed ‘slug’ limit of 500MB on Heroku. By only downloading the CPU version, we saved roughly 300–400MB of space.
+  - Update requirements.txt file:
+    - add to requirements.txt file -f https://download.pytorch.org/whl/torch_stable.html
+    - run in console pip install torch== -f https://download.pytorch.org/whl/torch_stable.html
+    - find in the output error available +cpu torch version
+    - add it to requirements.txt file: (example: torch==1.11.0+cpu)
 - Sourse language detection:
   - ```deep_translator.single_detection()```
 
