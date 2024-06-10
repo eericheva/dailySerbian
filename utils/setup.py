@@ -6,7 +6,7 @@ import telebot
 
 if not os.path.isfile("telegram_bot_token.py"):
     TOKEN = os.environ.get("TOKEN")
-    DETECT_LANG_API_KEY = os.environ.get("DATECT_LANG_API_KEY")
+    DETECT_LANG_API_KEY = os.environ.get("DETECT_LANG_API_KEY")
 else:
     from telegram_bot_token import TOKEN, DETECT_LANG_API_KEY
 

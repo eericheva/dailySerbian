@@ -42,3 +42,12 @@ telebot==0.0.5
 tifffile==2023.7.10
 typing_extensions==4.12.2
 urllib3==2.2.1
+torch==2.2.2+cpu
+torchvision==0.17.2+cpu
+easyocr==1.7.1
+
+
+# Using cached torchvision-0.17.2-cp38-cp38-macosx_10_13_x86_64.whl (1.7 MB)
+# Using cached torch-2.2.2-cp38-none-macosx_10_9_x86_64.whl (150.6 MB)
+# torch==2.2.2
+# torchvision==0.17.2
