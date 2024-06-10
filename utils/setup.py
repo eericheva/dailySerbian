@@ -25,7 +25,7 @@ if not os.path.isfile(json_datamodel_path):
         f"datamodel-codegen  --input {JSON_SCHEMA_PATH} "
         f"--input-file-type jsonschema "
         f"--output {json_datamodel_path}  "
-        f"--target-python-version 3.8 --use-default"
+        f"--target-python-version 3.11 --use-default"
     )
 
 USER_DICT_PATH = os.path.join(this_project_path, "data")
