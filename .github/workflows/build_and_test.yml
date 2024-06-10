@@ -45,7 +45,7 @@ jobs:
       - name: Generate Coverage Report
         run: |
           coverage report -m
-      - uses: mikeal/bundle-size-action@master
-      - uses: mikeal/publish-to-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      - uses: mikeal/bundle-size-action@master
+#      - uses: mikeal/publish-to-github-action@master
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
