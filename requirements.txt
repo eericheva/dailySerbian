@@ -42,6 +42,6 @@ telebot==0.0.5
 tifffile==2023.7.10
 typing_extensions==4.12.2
 urllib3==2.2.1
-torchvision==0.17.2+cpu
 torch==2.2.2+cpu
+torchvision==0.17.2+cpu
 easyocr==1.7.1
